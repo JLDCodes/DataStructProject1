@@ -77,6 +77,12 @@ bool cPersonGenerator::LoadCensusFiles(	std::string babyNameFile, std::string su
 			{
 				this->nameVec.addAtEnd(token);
 			}
+			if (tokenCount == 1) {
+				this->genderVec.addAtEnd(token);
+			}
+			if (tokenCount == 2) {
+				this->chanceVec.addAtEnd(stoi(token));
+			}
 			// Ignore the other parts of the line
 			tokenCount++;
 		}
@@ -143,7 +149,8 @@ cPerson* cPersonGenerator::generateRandomPerson(void) {
 	newPerson->SIN = dist(rd);
 
 	std::uniform_int_distribution<int> distName(0, nameVec.getSize() - 1);
-	newPerson->first = nameVec.getAt(distName(rd));
+	int nameGender = distName(rd);
+	newPerson->first = nameVec.getAt(nameGender);
 	newPerson->middle = nameVec.getAt(distName(rd));
 	std::uniform_int_distribution<int> surnameDist(0, surnameVec.getSize() - 1);
 	newPerson->last = surnameVec.getAt(surnameDist(rd));
@@ -185,27 +192,13 @@ cPerson* cPersonGenerator::generateRandomPerson(void) {
 	std::uniform_int_distribution<int> sexDist(0, 5);
 	int genderNum = sexDist(rd);
 
+	std::string gender = genderVec.getAt(nameGender);
+	if (gender == "M") {
+		newPerson->gender = cPerson::eGenderType::MALE;
+	}
+	if (gender == "F") {
+		newPerson->gender = cPerson::eGenderType::FEMALE;
+	}
 	
-	if (genderNum == 0) {
-		newPerson->gender = cPerson::eGenderType::MALE;
-	}
-	if (genderNum == 1) {
-		newPerson->gender = cPerson::eGenderType::FEMALE;
-	}
-	if (genderNum == 2) {
-
-		newPerson->gender = cPerson::eGenderType::NON_BINARY;
-	}
-	if (genderNum == 3){
-		newPerson->gender = cPerson::eGenderType::RATHER_NOT_SAY_UNKNOWN;
-	}
-	//added extra male and female because most people identify as one of these so there should be slightly higher chance
-	if (genderNum == 4) {
-		newPerson->gender = cPerson::eGenderType::MALE;
-	}
-	if (genderNum == 5) {
-		newPerson->gender = cPerson::eGenderType::FEMALE;
-	}
-
 	return newPerson;
 }

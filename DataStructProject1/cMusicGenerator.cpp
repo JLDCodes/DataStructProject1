@@ -80,18 +80,10 @@ cSong* cMusicGenerator::getRandomSong(void) {
 // So case sensitive, etc. 
 cSong* cMusicGenerator::findSong(std::string songName, std::string artist) {
 	
-	bool found = false;
-	unsigned location = 0;
 	for (int i = 0; i < cSongVec.getSize(); i++) {
 		if (cSongVec.getAt(i)->name == songName && cSongVec.getAt(i)->artist == artist) {
-			found = true;
-			location = i;
+			return cSongVec.getAt(i);
 		}
-
-	}
-	if (found==true) {
-		cSong* songFound = cSongVec.getAt(location);
-		return songFound;
 	}
 	return nullptr;
 }

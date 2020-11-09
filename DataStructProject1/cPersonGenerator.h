@@ -39,6 +39,8 @@ public:
 
 	//data
 	SmartArray<std::string> nameVec;
+	SmartArray<std::string> genderVec;
+	SmartArray<int> chanceVec;
 	SmartArray<std::string> surnameVec;
 	SmartArray<std::string> streetVec;
 	SmartArray<std::string> streetNameVec;

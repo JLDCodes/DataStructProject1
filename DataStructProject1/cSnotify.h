@@ -3,11 +3,13 @@
 
 #include "cPerson.h"
 #include "cSong.h"
-
+#include "SmartArray.h"
 
 class cSnotify
 {
 public:
+	SmartArray<cPerson*> personLibVec;
+	SmartArray<cSong*> songLibVec;
 	cSnotify();
 	~cSnotify();
 
