@@ -22,6 +22,8 @@ public:
 	std::string last;
 
 	SmartArray<cSong*> personalSongLibVec;
+	SmartArray<unsigned int> userRatingVec;
+	SmartArray<unsigned int> userSongsPlayedVec;
 
 	// enum inside the class "tightly coupled"
 	enum eGenderType

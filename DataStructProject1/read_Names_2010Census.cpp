@@ -145,11 +145,11 @@ int main()
 	//}
 
 	SmartArray<cPerson*> personVec;
-	for (int i = 0; i < 100; i++) {
+	for (unsigned int i = 0; i < 100; i++) {
 		personVec.addAtEnd(pGen->generateRandomPerson());
 	}
 
-	for (int i = 0; i < personVec.getSize(); i++) {
+	for (unsigned int i = 0; i < personVec.getSize(); i++) {
 		std::cout << personVec.getAt(i)->first << " " << personVec.getAt(i)->middle << " " << personVec.getAt(i)->last << " " << personVec.getAt(i)->gender << " " <<personVec.getAt(i)->SIN << " " << personVec.getAt(i)->age << " " << personVec.getAt(i)->postalCode << "\n";
 		std::cout << personVec.getAt(i)->getSnotifyUniqueUserID() << " " << personVec.getAt(i)->city << " " << personVec.getAt(i)->streetName << ",  " << personVec.getAt(i)->streetDirection << ", " << personVec.getAt(i)->streetType << " " << personVec.getAt(i)->streetNumber << "\n";
 	}
@@ -157,7 +157,7 @@ int main()
 	cMusicGenerator* mGen = new cMusicGenerator;
 	mGen->LoadMusicInformation("hot_stuff_2.csv", error);
 
-	for (int i = 0; i < mGen->artistVec.getSize()-1; i++) {
+	for (unsigned int i = 0; i < mGen->artistVec.getSize()-1; i++) {
 		std::cout << "Artist: " << mGen->cSongVec.getAt(i)->artist << " songName: " << mGen->cSongVec.getAt(i)->name << "\n";
 	}
 	
@@ -192,7 +192,7 @@ int main()
 
 	spotify->DeleteSong(spotify->songLibVec.getAt(1)->getUniqueID(), error);
 	std::cout << "\n\n";
-	for (int i = 0; i < spotify->songLibVec.getSize(); i++) {
+	for (unsigned int i = 0; i < spotify->songLibVec.getSize(); i++) {
 		std::cout << spotify->songLibVec.getAt(i)->getUniqueID() << spotify->songLibVec.getAt(i)->name << "\n";
 	}
 

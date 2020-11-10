@@ -28,10 +28,10 @@ private:
 
 public:
 
-	void removeFromVec(unsigned index) {
+	void removeFromVec(unsigned int index) {
 		value_type* new_array = new value_type[capacity_];
 		int count = 0;
-		for (int i = 0; i < size_; i++) {
+		for (unsigned int i = 0; i < size_; i++) {
 			if (i != index) {
 				new_array[count++] = pArray_[i];	
 			}
@@ -58,11 +58,15 @@ public:
 		pArray_[size_++] = to_insert;
 	}
 
+	void update(unsigned int index, value_type to_update) {
+		pArray_[index] = to_update;
+	}
+
 	bool  addAtEndNoDuplicates(value_type to_insert) {
 		if (size_ == capacity_)
 			grow();
 		bool duplicate = false;
-		for (int i = 0; i < size_; i++) {
+		for (unsigned int i = 0; i < size_; i++) {
 			if (pArray_[i] == to_insert) {
 				duplicate = true;
 			}
