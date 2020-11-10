@@ -10,9 +10,9 @@ public:
 	using value_type_reference = value_type&;
 	using value_type_const_reference = const value_type&;
 	using size_type = size_t;
+	value_type* pArray_;
 
 private:
-	value_type* pArray_;
 	unsigned int capacity_;
 	unsigned int size_;
 	
@@ -27,6 +27,8 @@ private:
 	}
 
 public:
+
+
 	//set start value 
 	SmartArray() {
 		pArray_ = new value_type[10];

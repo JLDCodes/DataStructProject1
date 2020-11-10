@@ -5,7 +5,7 @@
 #include "SmartArray.h"
 #include "cPersonGenerator.h"
 #include "cMusicGenerator.h"
-
+#include "cSnotify.h"
 // Operator to sort by title
 bool operator < (cPerson const& lhs, cPerson const& rhs) {
 	return lhs.first < rhs.first;
@@ -166,5 +166,12 @@ int main()
 
 	cSong* song2 = mGen->findSong("3", "Britney Spears");
 	std::cout << song2->artist << " " << song2->name << "\n";
+
+	cSnotify* spotify = new cSnotify;
+
+	spotify->AddUser(pGen->generateRandomPerson(), error);
+
+	std::cout << spotify->personLibVec.getAt(0)->first << "\n";
+
 }
 

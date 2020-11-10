@@ -17,7 +17,9 @@ cPerson::cPerson()
 	const unsigned int MAX_ID_INCREEMNT = 11;
 	cPerson::m_NEXT_Snotify_UniqueUSerID += (rand() % MAX_ID_INCREEMNT);
 }
-
+unsigned int cPerson::getSnotifyUniqueUserID(void) {
+	return m_Snotify_UniqueUserID;
+}
 // The 1st Snotify user will have ID: 10,000,000
 // static 
 unsigned int cPerson::m_NEXT_Snotify_UniqueUSerID = 10000000;

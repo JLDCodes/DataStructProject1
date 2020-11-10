@@ -1,6 +1,37 @@
 #include "cSnotify.h"
 
 
+cSnotify::cSnotify() {
+
+}
+cSnotify::~cSnotify() {
+
+}
+
+
+bool cSnotify::AddUser(cPerson* pPerson, std::string& errorString) {
+	
+	personLibVec.addAtEnd(pPerson);
+	return true;
+
+	
+
+}
+
+// This will overwrite the data contained in user 
+// NOTE: It "finds" the user by matching BOTH the "unique Snofity ID" AND the "SIN" 
+//        (Social Insurance Number)
+// So if either of these don't match (or aren't found) then it reutrns false. 
+bool cSnotify::UpdateUser(cPerson* pPerson, std::string& errorString) {
+	for (int i = 0; i < personLibVec.getSize(); i++) {
+		if (pPerson->SIN == personLibVec.getAt(i)->SIN && pPerson->getSnotifyUniqueUserID() == personLibVec.getAt(i)->getSnotifyUniqueUserID()) {
+			personLibVec.pArray_[i] = pPerson;
+			return true;
+		}
+	}
+	return false;
+}
+
 // This returns a COPY of the users library, in the form of a regular dynamic array.
 bool cSnotify::GetUsersSongLibrary(unsigned int snotifyUserID, cSong*& pLibraryArray, unsigned int& sizeOfLibary)
 {
@@ -16,8 +47,8 @@ bool cSnotify::GetUsersSongLibrary(unsigned int snotifyUserID, cSong*& pLibraryA
 
 	// Alloate a heap based array to hold all the songs...
 
-//	sizeOfLibary = WhateverYouHaveToDoToGetThisValue();
-//	pCopyOfLibrary = new cSong[sizeOfLibary];
+	//	sizeOfLibary = WhateverYouHaveToDoToGetThisValue();
+	//	pCopyOfLibrary = new cSong[sizeOfLibary];
 
 	// The array and the size of the array are "returned" by reference to the caller. 
 
