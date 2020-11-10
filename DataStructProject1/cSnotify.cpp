@@ -66,7 +66,11 @@ bool cSnotify::GetUsersSongLibrary(unsigned int snotifyUserID, cSong*& pLibraryA
 
 
 bool cSnotify::AddSong(cSong* pSong, std::string& errorString) {
-	songLibVec.addAtEnd(pSong);
+	
+	if (pSong == nullptr) {
+		return false;
+	}
+	songLibVec.addAtEndNoDuplicates(pSong);
 	return true;
 }
 
@@ -76,6 +80,42 @@ bool cSnotify::UpdateSong(cSong* pSong, std::string& errorString) {
 		if (pSong->getUniqueID() == songLibVec.getAt(i)->getUniqueID()) {
 			songLibVec.pArray_[i] = pSong;
 			return true;
+		}
+	}
+	return false;
+}
+
+bool cSnotify::DeleteSong(unsigned int UniqueSongID, std::string& errorString) {
+	for (int i = 0; i < songLibVec.getSize(); i++) {
+		if (songLibVec.getAt(i)->getUniqueID() == UniqueSongID) {
+			songLibVec.removeFromVec(i);
+			return true;
+		}
+	}
+	return false;
+}
+
+// This associates a particular song with a particular user. 
+// (returns true if the song is already there)
+bool cSnotify::AddSongToUserLibrary(unsigned int snotifyUserID, cSong* pNewSong, std::string& errorString) {
+	for (int i = 0; i < songLibVec.getSize(); i++) {
+		if (personLibVec.getAt(i)->getSnotifyUniqueUserID() == snotifyUserID) {
+			personLibVec.getAt(i)->personalSongLibVec.addAtEndNoDuplicates(pNewSong);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool cSnotify::RemoveSongFromUserLibrary(unsigned int snotifyUserID, unsigned int SnotifySongID, std::string& errorString) {
+	for (int i = 0; i < personLibVec.getSize(); i++) {
+		if (personLibVec.getAt(i)->getSnotifyUniqueUserID() == snotifyUserID) {
+			for (int k = 0; k < personLibVec.getAt(i)->personalSongLibVec.getSize(); k++) {
+				if (personLibVec.getAt(i)->personalSongLibVec.getAt(k)->getUniqueID() == SnotifySongID) {
+					personLibVec.getAt(i)->personalSongLibVec.removeFromVec(k);
+					return true;
+				}
+			}	
 		}
 	}
 	return false;

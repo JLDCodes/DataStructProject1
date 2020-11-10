@@ -167,7 +167,7 @@ int main()
 	std::cout << song->artist << " " << song->name << "\n";
 
 	cSong* song2 = mGen->findSong("3", "Britney Spears");
-	std::cout << song2->artist << " " << song2->name << "\n";
+	std::cout << song2->getUniqueID() <<song2->artist << " " << song2->name << "\n";
 
 	cSnotify* spotify = new cSnotify;
 
@@ -177,17 +177,29 @@ int main()
 	spotify->AddUser(pGen->generateRandomPerson(), error);
 	spotify->DeleteUser(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), error);
 
-	std::cout << spotify->personLibVec.getSize();
+	std::cout << spotify->personLibVec.getSize() << "\n";
 
 	spotify->AddSong(song, error);
 	spotify->AddSong(song2, error);
 	spotify->AddSong(mGen->getRandomSong(), error);
 	spotify->AddSong(mGen->getRandomSong(), error);
 	spotify->AddSong(mGen->getRandomSong(), error);
-	std::cout << spotify->songLibVec.getAt(0)->getUniqueID() << "\n";
-	std::cout << spotify->songLibVec.getAt(1)->getUniqueID() << "\n";
-	std::cout << spotify->songLibVec.getAt(2)->getUniqueID() << "\n";
-	std::cout << spotify->songLibVec.getAt(3)->getUniqueID() << "\n";
-	std::cout << spotify->songLibVec.getAt(4)->getUniqueID() << "\n";
+	std::cout << spotify->songLibVec.getAt(0)->getUniqueID() << spotify->songLibVec.getAt(0)->name <<"\n";
+	std::cout << spotify->songLibVec.getAt(1)->getUniqueID() << spotify->songLibVec.getAt(1)->name <<"\n";
+	std::cout << spotify->songLibVec.getAt(2)->getUniqueID() << spotify->songLibVec.getAt(2)->name<<"\n";
+	std::cout << spotify->songLibVec.getAt(3)->getUniqueID() << spotify->songLibVec.getAt(3)->name<<"\n";
+	std::cout << spotify->songLibVec.getAt(4)->getUniqueID() << spotify->songLibVec.getAt(4)->name<<"\n";
+
+	spotify->DeleteSong(spotify->songLibVec.getAt(1)->getUniqueID(), error);
+	std::cout << "\n\n";
+	for (int i = 0; i < spotify->songLibVec.getSize(); i++) {
+		std::cout << spotify->songLibVec.getAt(i)->getUniqueID() << spotify->songLibVec.getAt(i)->name << "\n";
+	}
+
+	spotify->AddSongToUserLibrary(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), song, error);
+	std::cout << spotify->personLibVec.getAt(0)->personalSongLibVec.getAt(0)->name << "\n";
+	spotify->RemoveSongFromUserLibrary(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), song->getUniqueID(), error);
+	std::cout << spotify->personLibVec.getAt(0)->personalSongLibVec.getSize() << "\n";
+
 }
 

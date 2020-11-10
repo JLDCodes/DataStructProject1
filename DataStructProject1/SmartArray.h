@@ -75,6 +75,7 @@ public:
 	}
 
 
+
 	value_type getAt(int index) {
 		return *(pArray_ + index);
 	}

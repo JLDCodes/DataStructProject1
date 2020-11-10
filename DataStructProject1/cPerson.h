@@ -6,7 +6,8 @@
 #pragma warning( disable : 26812 )
 
 #include <string>
-
+#include "SmartArray.h"
+#include "cSong.h"
 class cPerson
 {
 public:
@@ -20,6 +21,7 @@ public:
 	std::string middle;
 	std::string last;
 
+	SmartArray<cSong*> personalSongLibVec;
 
 	// enum inside the class "tightly coupled"
 	enum eGenderType
