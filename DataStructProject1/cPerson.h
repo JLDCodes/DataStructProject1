@@ -51,7 +51,7 @@ public:
 
 	std::string city;
 	std::string province;
-	char postalCode[7];		// Canadian postal codes are 6 characters
+	char postalCode[7];		// Canadian postal codes are 6 characters, they are also '\0' terminated
 
 	unsigned int SIN;	// = 0
 	//unsigned int SIN = 0;		// C++ 11

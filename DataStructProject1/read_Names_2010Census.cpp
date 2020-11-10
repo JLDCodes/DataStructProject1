@@ -151,7 +151,7 @@ int main()
 
 	for (int i = 0; i < personVec.getSize(); i++) {
 		std::cout << personVec.getAt(i)->first << " " << personVec.getAt(i)->middle << " " << personVec.getAt(i)->last << " " << personVec.getAt(i)->gender << " " <<personVec.getAt(i)->SIN << " " << personVec.getAt(i)->age << " " << personVec.getAt(i)->postalCode << "\n";
-		std::cout << personVec.getAt(i)->province << " " << personVec.getAt(i)->city << " " << personVec.getAt(i)->streetName << ",  " << personVec.getAt(i)->streetDirection << ", " << personVec.getAt(i)->streetType << " " << personVec.getAt(i)->streetNumber << "\n";
+		std::cout << personVec.getAt(i)->getSnotifyUniqueUserID() << " " << personVec.getAt(i)->city << " " << personVec.getAt(i)->streetName << ",  " << personVec.getAt(i)->streetDirection << ", " << personVec.getAt(i)->streetType << " " << personVec.getAt(i)->streetNumber << "\n";
 	}
 
 	cMusicGenerator* mGen = new cMusicGenerator;
@@ -161,6 +161,8 @@ int main()
 		std::cout << "Artist: " << mGen->cSongVec.getAt(i)->artist << " songName: " << mGen->cSongVec.getAt(i)->name << "\n";
 	}
 	
+	std::cout << mGen->songIdVec.getSize() << "\n";
+
 	cSong* song = mGen->getRandomSong();
 	std::cout << song->artist << " " << song->name << "\n";
 
@@ -172,6 +174,20 @@ int main()
 	spotify->AddUser(pGen->generateRandomPerson(), error);
 
 	std::cout << spotify->personLibVec.getAt(0)->first << "\n";
+	spotify->AddUser(pGen->generateRandomPerson(), error);
+	spotify->DeleteUser(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), error);
 
+	std::cout << spotify->personLibVec.getSize();
+
+	spotify->AddSong(song, error);
+	spotify->AddSong(song2, error);
+	spotify->AddSong(mGen->getRandomSong(), error);
+	spotify->AddSong(mGen->getRandomSong(), error);
+	spotify->AddSong(mGen->getRandomSong(), error);
+	std::cout << spotify->songLibVec.getAt(0)->getUniqueID() << "\n";
+	std::cout << spotify->songLibVec.getAt(1)->getUniqueID() << "\n";
+	std::cout << spotify->songLibVec.getAt(2)->getUniqueID() << "\n";
+	std::cout << spotify->songLibVec.getAt(3)->getUniqueID() << "\n";
+	std::cout << spotify->songLibVec.getAt(4)->getUniqueID() << "\n";
 }
 

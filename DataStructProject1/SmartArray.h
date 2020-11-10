@@ -28,6 +28,18 @@ private:
 
 public:
 
+	void removeFromVec(unsigned index) {
+		value_type* new_array = new value_type[capacity_];
+		int count = 0;
+		for (int i = 0; i < size_; i++) {
+			if (i != index) {
+				new_array[count++] = pArray_[i];	
+			}
+		}
+		delete[] pArray_;
+		pArray_ = new_array;
+		size_ = count;
+	}
 
 	//set start value 
 	SmartArray() {

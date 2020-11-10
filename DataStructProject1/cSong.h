@@ -8,11 +8,10 @@
 class cSong
 {
 public:
-	cSong()
-	{
-		this->rating = 0;
-		this->numberOfTimesPlayed = 0;
-	}
+	cSong();
+	~cSong();
+
+	
 	std::string name;
 	std::string artist;
 	// These are used for user play statistics
@@ -23,9 +22,13 @@ public:
 	//	this method rather than the public variable. 
 	// The cPerson has a common method for generating unique IDs, if you 
 	//	want to use that. 
-	unsigned int getUniqueID(void) { return this->uniqueID; }
-
+	unsigned int getUniqueID(void);
+	
+	
+private:
 	unsigned int uniqueID;
+	// 
+	static unsigned int m_NEXT_Snotify_UniqueSongID;
 }; 
 
 #endif

@@ -1,5 +1,5 @@
 #include "cPerson.h"
-
+#include <random>
 // Warning C26812 : Prefer 'enum class' over 'enum' (Enum.3)
 #pragma warning( disable : 26812 )
 
@@ -11,11 +11,14 @@ cPerson::cPerson()
 	this->age = -1;
 	this->SIN = 0;
 
+	//this->
+	std::random_device rd;
+	std::uniform_int_distribution<int> dist(1, 11);
 	// Generate unique Snotify ID
 	this->m_Snotify_UniqueUserID = cPerson::m_NEXT_Snotify_UniqueUSerID;
 	// Increment for next created user by a small random amount 
-	const unsigned int MAX_ID_INCREEMNT = 11;
-	cPerson::m_NEXT_Snotify_UniqueUSerID += (rand() % MAX_ID_INCREEMNT);
+	
+	cPerson::m_NEXT_Snotify_UniqueUSerID += dist(rd);
 }
 unsigned int cPerson::getSnotifyUniqueUserID(void) {
 	return m_Snotify_UniqueUserID;

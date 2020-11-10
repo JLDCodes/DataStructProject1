@@ -8,14 +8,21 @@ cSnotify::~cSnotify() {
 
 }
 
+bool cSnotify::DeleteUser(unsigned int SnotifyUserID, std::string& errorString) {
+	for (int i = 0; i < personLibVec.getSize(); i++) {
+		if (personLibVec.getAt(i)->getSnotifyUniqueUserID() == SnotifyUserID) {
+			personLibVec.removeFromVec(i);
+			return true;
+		}
+	}
+	return false;
+}
 
+// All these return true if they work, false if not (for any reason)
+	// You can add some error information to the by referenece error string, if you want. 
 bool cSnotify::AddUser(cPerson* pPerson, std::string& errorString) {
-	
 	personLibVec.addAtEnd(pPerson);
 	return true;
-
-	
-
 }
 
 // This will overwrite the data contained in user 
@@ -55,4 +62,21 @@ bool cSnotify::GetUsersSongLibrary(unsigned int snotifyUserID, cSong*& pLibraryA
 	// TODO: Copy all the songs over
 
 	return true;
+}
+
+
+bool cSnotify::AddSong(cSong* pSong, std::string& errorString) {
+	songLibVec.addAtEnd(pSong);
+	return true;
+}
+
+// This finds a match, based on the "unique ID", and overwrites the data. 
+bool cSnotify::UpdateSong(cSong* pSong, std::string& errorString) {
+	for (int i = 0; i < songLibVec.getSize(); i++) {
+		if (pSong->getUniqueID() == songLibVec.getAt(i)->getUniqueID()) {
+			songLibVec.pArray_[i] = pSong;
+			return true;
+		}
+	}
+	return false;
 }
