@@ -3,14 +3,14 @@
 
 #include "cSong.h"
 #include "SmartArray.h"
-
+#include "cLinkedList.h"
 class cMusicGenerator
 {
 public:
-	SmartArray<std::string> songNameVec;
-	SmartArray<std::string> artistVec;
+	cLinkedList<std::string> artistList;
+	cLinkedList<std::string> songList;
+	cLinkedList<cSong*> cSongList;
 	SmartArray<std::string> songIdVec;
-	SmartArray<cSong*> cSongVec;
 	cMusicGenerator();
 	~cMusicGenerator();
 

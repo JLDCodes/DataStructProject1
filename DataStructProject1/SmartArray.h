@@ -27,7 +27,7 @@ private:
 	}
 
 public:
-
+	//creates a new array and copies the old one, without the value at given index
 	void removeFromVec(unsigned int index) {
 		value_type* new_array = new value_type[capacity_];
 		int count = 0;
@@ -41,7 +41,7 @@ public:
 		size_ = count;
 	}
 
-	//set start value 
+	//set start values 
 	SmartArray() {
 		pArray_ = new value_type[10];
 		capacity_ = 10;
@@ -52,16 +52,19 @@ public:
 		//delete[] pArray_;
 	}
 
+	//our pushback function, adds into the smart array
 	void addAtEnd(value_type to_insert) {
 		if (size_ == capacity_)
 			grow();
 		pArray_[size_++] = to_insert;
 	}
 
+	// updates the value at current index
 	void update(unsigned int index, value_type to_update) {
 		pArray_[index] = to_update;
 	}
 
+	// this is like addAtEnd except it only works if the value is not currently in the smart array
 	bool  addAtEndNoDuplicates(value_type to_insert) {
 		if (size_ == capacity_)
 			grow();
@@ -79,15 +82,17 @@ public:
 	}
 
 
-
+	// return value at index
 	value_type getAt(int index) {
 		return *(pArray_ + index);
 	}
 
+	// returns size of the array
 	unsigned int getSize(void) {
 		return this->size_;
 	}
 
+	//  restore array to original, empty from
 	void clear() {
 		delete[] pArray_;
 		pArray_ = new value_type[10];
@@ -95,6 +100,7 @@ public:
 		size_ = 0;
 	}
 
+	//checks to see if size is 0
 	bool isEmpty() {
 		if (size_ == 0) {
 			return true;
@@ -102,7 +108,8 @@ public:
 		return false;
 	}
 
-
+	// quick sort based on song
+	// Type is the specified variable that you want to 
 	void quickSortByType(int low, int high, std::string type)
 	{
 		if (low < high)
@@ -113,7 +120,7 @@ public:
 		}
 	}
 
-
+	// partitrion based on song variable
 	int partitionByType(int low, int high, std::string type)
 	{
 		value_type pivot = this->getAt(high);

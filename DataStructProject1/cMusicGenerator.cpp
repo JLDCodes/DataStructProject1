@@ -5,15 +5,17 @@
 #include <string>
 #include <iostream>
 #include <random>
+
 cMusicGenerator::cMusicGenerator() {
 
 }
+
 cMusicGenerator::~cMusicGenerator() {
 
 }
 
 bool cMusicGenerator::LoadMusicInformation(std::string musicFileName, std::string& errorString) {
-	//skip first entry column name
+
 	
 	std::ifstream musicFile(musicFileName);
 	if (!musicFile.is_open())
@@ -40,21 +42,26 @@ bool cMusicGenerator::LoadMusicInformation(std::string musicFileName, std::strin
 		{
 			if (tokenCount == 3)
 			{
+				if (token[0] == '"') {
+					break;
+				}
 				holdSongName =token;
 			}
 			if (tokenCount == 4) {
+				if (token[0] == '"') {
+					break;
+				}
 				holdArtist =token;
 			}
 			if (tokenCount == 5) {
 				if (songIdVec.addAtEndNoDuplicates(token) == true) {
 					songToAdd->artist = holdArtist;
 					songToAdd->name = holdSongName;
-					songNameVec.addAtEnd(holdSongName);
-					artistVec.addAtEnd(holdArtist);
-					cSongVec.addAtEnd(songToAdd);
+					cSongList.insert(songToAdd);
+					artistList.insert(holdArtist);
+					songList.insert(holdSongName);
 				}
 			}
-
 			// Ignore the other parts of the line
 			tokenCount++;
 		}
@@ -67,12 +74,13 @@ bool cMusicGenerator::LoadMusicInformation(std::string musicFileName, std::strin
 
 cSong* cMusicGenerator::getRandomSong(void) {
 	std::random_device rd;
-	std::uniform_int_distribution<int> dist(0, songIdVec.getSize()-1);
+	std::uniform_int_distribution<int> dist(0, cSongList.getSize()-1);
 	int songId = dist(rd);
 	cSong* randSong = new cSong;
-	randSong->artist = artistVec.getAt(songId);
-	randSong->name = songNameVec.getAt(songId);
-	return cSongVec.getAt(dist(rd));
+	//randSong->artist = artistVec.getAt(songId);
+	//randSong->artist = artistList.getNodeInfoAt(songId);
+	//randSong->name = songList.getNodeInfoAt(songId);
+	return cSongList.getNodeInfoAt(dist(rd));
 }
 
 // Returns 0, NULL, or nullptr if no song is found
@@ -80,9 +88,9 @@ cSong* cMusicGenerator::getRandomSong(void) {
 // So case sensitive, etc. 
 cSong* cMusicGenerator::findSong(std::string songName, std::string artist) {
 	
-	for (unsigned int i = 0; i < cSongVec.getSize(); i++) {
-		if (cSongVec.getAt(i)->name == songName && cSongVec.getAt(i)->artist == artist) {
-			return cSongVec.getAt(i);
+	for (unsigned int i = 0; i < cSongList.getSize(); i++) {
+		if (cSongList.getNodeInfoAt(i)->name == songName && cSongList.getNodeInfoAt(i)->artist == artist) {
+			return cSongList.getNodeInfoAt(i);
 		}
 	}
 	return nullptr;

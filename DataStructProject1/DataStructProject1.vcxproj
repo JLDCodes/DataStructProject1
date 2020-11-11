@@ -148,13 +148,14 @@
     <ClCompile Include="read_Names_2010Census.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Desktop\DataStruc Project1\cLinkedList.h" />
     <ClInclude Include="..\..\..\..\Desktop\DataStruc Project1\cNode.h" />
     <ClInclude Include="cMusicGenerator.h" />
+    <ClInclude Include="cNode.h" />
     <ClInclude Include="cPerson.h" />
     <ClInclude Include="cPersonGenerator.h" />
     <ClInclude Include="cSnotify.h" />
     <ClInclude Include="cSong.h" />
+    <ClInclude Include="cLinkedList.h" />
     <ClInclude Include="SmartArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

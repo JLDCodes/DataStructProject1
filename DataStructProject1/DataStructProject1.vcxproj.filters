@@ -59,7 +59,10 @@
     <ClInclude Include="..\..\..\..\Desktop\DataStruc Project1\cNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Desktop\DataStruc Project1\cLinkedList.h">
+    <ClInclude Include="cLinkedList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
