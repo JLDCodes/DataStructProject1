@@ -1,36 +1,5 @@
 #include "cSnotify.h"
 
-// Operator to sort by title
-
-bool operator < (cSong const& lhs, cSong const& rhs) {
-	return lhs.name < rhs.name;
-}
-
-bool operator <= (cSong const& lhs, cSong const& rhs) {
-	return lhs.name <= rhs.name;
-}
-
-
-bool bySpecial(cSong const& lhs, cSong const& rhs) {
-	return lhs.artist <= rhs.artist;
-}
-
-bool operator <= (cPerson const& lhs, cPerson const& rhs) {
-	return lhs.last <= rhs.last;
-}
-
-bool bySpecial(cPerson const& lhs, cPerson const& rhs) {
-	return lhs.m_Snotify_UniqueUserID <= lhs.m_Snotify_UniqueUserID;
-}
-
-bool byFirst(cPerson const& lhs, cPerson const& rhs) {
-	return lhs.first <= lhs.first;
-}
-
-bool byMiddle(cPerson const& lhs, cPerson const& rhs) {
-	return lhs.middle <= lhs.middle;
-}
-
 
 
 
@@ -383,25 +352,3 @@ bool cSnotify::FindUsersFirstLastNames(std::string firstName, std::string lastNa
 	return true;
 }
 
-//bool byAge(cPerson const& lhs, cPerson const& rhs) {
-//	return lhs.age <= lhs.age;
-//}
-//
-
-
-//
-//bool cSnotify::FindUsersFirstLastNamesTEST(std::string firstName, std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
-//	SmartArray<cPerson> vec;
-//	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
-//		if (personLibVec.getAt(i)->last == lastName && personLibVec.getAt(i)->last == lastName) {
-//			vec.addAtEnd(*personLibVec.getAt(i));
-//		}
-//	}
-//	const unsigned int sizeOfArray = vec.getSize() * sizeof(cSong);
-//	pAllTheUsers = new cPerson[sizeOfArray];
-//	vec.quickSortByFunc(0, vec.getSize() - 1, byAge);
-//	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
-//		pAllTheUsers[i] = vec.getAt(i);
-//	}
-//	return true;
-//}

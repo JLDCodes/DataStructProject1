@@ -277,10 +277,7 @@ int main()
 	for (unsigned int i = 0; i < size; i++) {
 		std::cout << peopleLib[i].first << " " << peopleLib[i].middle << " " << peopleLib[i].last << "\n";
 	}
-	//spotify->FindUsersFirstLastNamesTEST(spotify->personLibVec.getAt(0)->first, spotify->personLibVec.getAt(0)->last, peopleLib, size);
-	//for (unsigned int i = 0; i < size; i++) {
-	//	std::cout << peopleLib[i].first << " " << peopleLib[i].middle << " " << peopleLib[i].age << "\n";
-	//}
+
 
 }
 
