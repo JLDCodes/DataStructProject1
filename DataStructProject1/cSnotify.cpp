@@ -1,5 +1,19 @@
 #include "cSnotify.h"
 
+// Operator to sort by title
+
+bool operator < (cSong const& lhs, cSong const& rhs) {
+	return lhs.name < rhs.name;
+}
+
+bool operator <= (cSong const& lhs, cSong const& rhs) {
+	return lhs.name <= rhs.name;
+}
+
+
+bool byArtist(cSong const& lhs, cSong const& rhs) {
+	return lhs.artist <= rhs.artist;
+}
 
 cSnotify::cSnotify() {
 
@@ -200,24 +214,89 @@ cSong* cSnotify::FindSong(unsigned int uniqueID) {
 // This returns a COPY of the users library, in the form of a regular dynamic array.
 bool cSnotify::GetUsersSongLibrary(unsigned int snotifyUserID, cSong*& pLibraryArray, unsigned int& sizeOfLibary)
 {
-	// The caller would do something like this (assume the user ID = 28472382)
-	//
-	//	cSong* pTheSongs = 0;
-	//	unsigned int arraySize = 0;
-	//	GetUsersSongLibrary( 28472382, pTheSongs, arraySize );
-	// 
-	// Inside this method, you'd do something like this:
+	bool found = false;
+	SmartArray<cSong> songVec;
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+		if (personLibVec.getAt(i)->getSnotifyUniqueUserID() == snotifyUserID) {
+			const unsigned int sizeOfArray = personLibVec.getAt(i)->personalSongLibVec.getSize() * sizeof(cSong);
+			pLibraryArray = new cSong[sizeOfArray];
+			for (unsigned int k = 0; k < personLibVec.getAt(i)->personalSongLibVec.getSize(); k++) {
+				songVec.addAtEnd(*personLibVec.getAt(i)->personalSongLibVec.getAt(k));
+				
+			}
+		}
+	}
+	if (found = false) {
+		return false;
+	}
+	for (unsigned int i = 0; i < songVec.getSize(); i++) {
+		pLibraryArray[i] = songVec.getAt(i);
+	}
+	sizeOfLibary = songVec.getSize();
+	return true;
+}
 
-	// TODO: Find that user... 
+bool cSnotify::GetUsersSongLibraryAscendingByTitle(unsigned int snotifyUserID, cSong*& pLibraryArray, unsigned int& sizeOfLibary) {
+	bool found = false;
+	SmartArray<cSong> songVec;
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+		if (personLibVec.getAt(i)->getSnotifyUniqueUserID() == snotifyUserID) {
+			const unsigned int sizeOfArray = personLibVec.getAt(i)->personalSongLibVec.getSize() * sizeof(cSong);
+			pLibraryArray = new cSong[sizeOfArray];
+			for (unsigned int k = 0; k < personLibVec.getAt(i)->personalSongLibVec.getSize(); k++) {
+				songVec.addAtEnd(*personLibVec.getAt(i)->personalSongLibVec.getAt(k));
 
-	// Alloate a heap based array to hold all the songs...
+			}
+		}
+	}
+	if (found = false) {
+		return false;
+	}
+	songVec.quickSort(0, songVec.getSize() - 1);
+	for (unsigned int i = 0; i < songVec.getSize(); i++) {
+		pLibraryArray[i] = songVec.getAt(i);
+	}
+	sizeOfLibary = songVec.getSize();
+	return true;
+}
 
-	//	sizeOfLibary = WhateverYouHaveToDoToGetThisValue();
-	//	pCopyOfLibrary = new cSong[sizeOfLibary];
+bool cSnotify::GetUsersSongLibraryAscendingByArtist(unsigned int snotifyUserID, cSong*& pLibraryArray, unsigned int& sizeOfLibary) {
+	SmartArray<cSong> songVec;
+	bool found = false;
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+		if (personLibVec.getAt(i)->getSnotifyUniqueUserID() == snotifyUserID) {
+			const unsigned int sizeOfArray = personLibVec.getAt(i)->personalSongLibVec.getSize() * sizeof(cSong);
+			pLibraryArray = new cSong[sizeOfArray];
+			found = true;
+			for (unsigned int k = 0; k < personLibVec.getAt(i)->personalSongLibVec.getSize(); k++) {
+				songVec.addAtEnd(*personLibVec.getAt(i)->personalSongLibVec.getAt(k));
+				
+			}
+		}
+	}
+	if (found = false) {
+		return false;
+	}
+	songVec.quickSort2(0, songVec.getSize() - 1);
+	for (unsigned int i = 0; i < songVec.getSize(); i++) {
+		pLibraryArray[i] = songVec.getAt(i);
+	}
+	sizeOfLibary = songVec.getSize();
+	return true;
+}
 
-	// The array and the size of the array are "returned" by reference to the caller. 
-
-	// TODO: Copy all the songs over
-
+bool cSnotify::GetUsers(cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
+	if (personLibVec.getSize() == 0) {
+		return false;
+	}
+	
+	SmartArray<cPerson> vec;
+	const unsigned int sizeOfArray = personLibVec.getSize() * sizeof(cSong);
+	pAllTheUsers = new cPerson[sizeOfArray];
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+		vec.addAtEnd(*personLibVec.getAt(i));
+		pAllTheUsers[i] = vec.getAt(i);
+	}
+	sizeOfUserArray = vec.getSize();
 	return true;
 }

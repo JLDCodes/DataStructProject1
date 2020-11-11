@@ -134,6 +134,37 @@ public:
 			quickSort(pi + 1, high);
 		}
 	}
+	int partition2(int low, int high)
+	{
+		value_type pivot = this->getAt(high);
+		int i = (low - 1);
+		for (int j = low; j <= high - 1; j++)
+		{
+			if (byArtist(this->getAt(j), pivot))
+			{
+				i++;
+				//swap 
+				value_type hold = pArray_[i];
+				pArray_[i] = pArray_[j];
+				pArray_[j] = hold;
+			}
+		}
+		//swap
+		value_type hold2 = this->getAt(i + 1);
+		pArray_[i + 1] = pArray_[high];
+		pArray_[high] = hold2;
+		return (i + 1);
+	}
 
+	/* low  --> Starting index,  high  --> Ending index */
+	void quickSort2(int low, int high)
+	{
+		if (low < high)
+		{
+			int pi = partition2(low, high);
+			quickSort2(low, pi - 1);
+			quickSort2(pi + 1, high);
+		}
+	}
 };
 

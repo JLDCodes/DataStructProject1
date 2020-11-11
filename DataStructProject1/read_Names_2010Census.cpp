@@ -6,15 +6,6 @@
 #include "cPersonGenerator.h"
 #include "cMusicGenerator.h"
 #include "cSnotify.h"
-// Operator to sort by title
-bool operator < (cPerson const& lhs, cPerson const& rhs) {
-	return lhs.first < rhs.first;
-}
-
-bool operator <= (cPerson const& lhs, cPerson const& rhs) {
-	return lhs.first <= rhs.first;
-}
-
 
 int main()
 {
@@ -200,6 +191,58 @@ int main()
 	std::cout << spotify->personLibVec.getAt(0)->personalSongLibVec.getAt(0)->name << "\n";
 	spotify->RemoveSongFromUserLibrary(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), song->getUniqueID(), error);
 	std::cout << spotify->personLibVec.getAt(0)->personalSongLibVec.getSize() << "\n";
+	std::cout << "\n\n";
+	spotify->AddSongToUserLibrary(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), song, error);
+	std::cout << "user rating: " << spotify->personLibVec.getAt(0)->userRatingVec.getAt(0) << "\n";
+	spotify->UpdateRatingOnSong(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), spotify->personLibVec.getAt(0)->personalSongLibVec.getAt(0)->getUniqueID(), 5);
+	std::cout << "user rating: " << spotify->personLibVec.getAt(0)->userRatingVec.getAt(0) << "\n";
+
+	std::cout << "number of times played " << spotify->personLibVec.getAt(0)->userSongsPlayedVec.getAt(0) << "\n";
+	spotify->GetSong(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), spotify->personLibVec.getAt(0)->personalSongLibVec.getAt(0)->getUniqueID(), error);
+	std::cout << "number of times played " << spotify->personLibVec.getAt(0)->userSongsPlayedVec.getAt(0) << "\n";
+
+	unsigned int songRating;
+	std::cout << spotify->GetCurrentSongRating(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), spotify->personLibVec.getAt(0)->personalSongLibVec.getAt(0)->getUniqueID(), songRating) << "\n";
+	std::cout << "song rating: " << songRating << "\n";
+
+	spotify->GetCurrentSongNumberOfPlays(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), spotify->personLibVec.getAt(0)->personalSongLibVec.getAt(0)->getUniqueID(), songRating);
+	std::cout << songRating << "\n";
+
+	std::cout << "\n\n";
+
+	std::cout << spotify->personLibVec.getAt(0)->first << "\n";
+	cPerson* bob = spotify->FindUserBySIN(spotify->personLibVec.getAt(0)->SIN);
+	std::cout << bob->first << "\n";
+
+	std::cout << "\n\n";
+	cSong* pTheSongs;
+	unsigned int size;
+	for (unsigned int i = 0; i < 100; i++) {
+		spotify->songLibVec.addAtEnd(mGen->getRandomSong());
+	}
+
+	for (unsigned int i = 0; i < 7; i++) {
+		std::cout << spotify->songLibVec.getAt(i)->name << "\n";
+	}
+	for (unsigned int i = 0; i < 5; i++) {
+		spotify->personLibVec.getAt(0)->personalSongLibVec.addAtEnd(spotify->songLibVec.getAt(i));
+	}
+
+	std::cout << "\n\n";
+	spotify->GetUsersSongLibrary(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), pTheSongs, size);
+	for (unsigned int i = 0; i < size; i++) {
+		std::cout << pTheSongs[i].name << "\n";
+	}
+	std::cout << "\n\n";
+	spotify->GetUsersSongLibraryAscendingByTitle(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), pTheSongs, size);
+	for (unsigned int i = 0; i < size; i++) {
+		std::cout << pTheSongs[i].name << "\n";
+	}
+	std::cout << "\n\n";
+	spotify->GetUsersSongLibraryAscendingByArtist(spotify->personLibVec.getAt(0)->getSnotifyUniqueUserID(), pTheSongs, size);
+	for (unsigned int i = 0; i < size; i++) {
+		std::cout << pTheSongs[i].artist << "\n";
+	}
 
 }
 
