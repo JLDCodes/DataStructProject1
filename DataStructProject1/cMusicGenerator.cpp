@@ -14,6 +14,7 @@ cMusicGenerator::~cMusicGenerator() {
 
 }
 
+
 bool cMusicGenerator::LoadMusicInformation(std::string musicFileName, std::string& errorString) {
 
 	
@@ -77,9 +78,6 @@ cSong* cMusicGenerator::getRandomSong(void) {
 	std::uniform_int_distribution<int> dist(0, cSongList.getSize()-1);
 	int songId = dist(rd);
 	cSong* randSong = new cSong;
-	//randSong->artist = artistVec.getAt(songId);
-	//randSong->artist = artistList.getNodeInfoAt(songId);
-	//randSong->name = songList.getNodeInfoAt(songId);
 	return cSongList.getNodeInfoAt(dist(rd));
 }
 
