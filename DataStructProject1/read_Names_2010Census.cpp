@@ -243,6 +243,44 @@ int main()
 	for (unsigned int i = 0; i < size; i++) {
 		std::cout << pTheSongs[i].artist << "\n";
 	}
+	std::cout << "\n\n";
+	cPerson* peopleLib;
+	spotify->AddUser(pGen->generateRandomPerson(), error);
+	spotify->AddUser(pGen->generateRandomPerson(), error);
+	spotify->AddUser(pGen->generateRandomPerson(), error);
+	
+	spotify->GetUsers(peopleLib, size);
+	for (unsigned int i = 0; i < size; i++) {
+		std::cout << peopleLib[i].last << "\n";
+	}
+	std::cout << "\n\n";
+	spotify->GetUsersByID(peopleLib, size);
+	for (unsigned int i = 0; i < size; i++) {
+		std::cout << peopleLib[i].m_Snotify_UniqueUserID << "\n";
+	}
+	spotify->personLibVec.getAt(1)->first = spotify->personLibVec.getAt(0)->first;
+	spotify->FindUsersFirstName(spotify->personLibVec.getAt(0)->first, peopleLib, size);
+	
+	std::cout << "\n\n";
+	for (unsigned int i = 0; i < size; i++) {
+		std::cout << peopleLib[i].first << " " << peopleLib[i].last << "\n";
+	}
+	spotify->personLibVec.getAt(2)->last = spotify->personLibVec.getAt(0)->last;
+	std::cout << "\n\n";
+	spotify->FindUsersLastName(spotify->personLibVec.getAt(0)->last, peopleLib, size);
+	for (unsigned int i = 0; i < size; i++) {
+		std::cout << peopleLib[i].first << " " << peopleLib[i].last << "\n";
+	}
+	spotify->personLibVec.getAt(2)->first = spotify->personLibVec.getAt(0)->first;
+	std::cout << "\n\n";
+	spotify->FindUsersFirstLastNames(spotify->personLibVec.getAt(0)->first, spotify->personLibVec.getAt(0)->last, peopleLib, size);
+	for (unsigned int i = 0; i < size; i++) {
+		std::cout << peopleLib[i].first << " " << peopleLib[i].middle << " " << peopleLib[i].last << "\n";
+	}
+	//spotify->FindUsersFirstLastNamesTEST(spotify->personLibVec.getAt(0)->first, spotify->personLibVec.getAt(0)->last, peopleLib, size);
+	//for (unsigned int i = 0; i < size; i++) {
+	//	std::cout << peopleLib[i].first << " " << peopleLib[i].middle << " " << peopleLib[i].age << "\n";
+	//}
 
 }
 

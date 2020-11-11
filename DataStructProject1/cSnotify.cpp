@@ -11,9 +11,28 @@ bool operator <= (cSong const& lhs, cSong const& rhs) {
 }
 
 
-bool byArtist(cSong const& lhs, cSong const& rhs) {
+bool bySpecial(cSong const& lhs, cSong const& rhs) {
 	return lhs.artist <= rhs.artist;
 }
+
+bool operator <= (cPerson const& lhs, cPerson const& rhs) {
+	return lhs.last <= rhs.last;
+}
+
+bool bySpecial(cPerson const& lhs, cPerson const& rhs) {
+	return lhs.m_Snotify_UniqueUserID <= lhs.m_Snotify_UniqueUserID;
+}
+
+bool byFirst(cPerson const& lhs, cPerson const& rhs) {
+	return lhs.first <= lhs.first;
+}
+
+bool byMiddle(cPerson const& lhs, cPerson const& rhs) {
+	return lhs.middle <= lhs.middle;
+}
+
+
+
 
 cSnotify::cSnotify() {
 
@@ -226,9 +245,7 @@ bool cSnotify::GetUsersSongLibrary(unsigned int snotifyUserID, cSong*& pLibraryA
 			}
 		}
 	}
-	if (found = false) {
-		return false;
-	}
+
 	for (unsigned int i = 0; i < songVec.getSize(); i++) {
 		pLibraryArray[i] = songVec.getAt(i);
 	}
@@ -249,9 +266,7 @@ bool cSnotify::GetUsersSongLibraryAscendingByTitle(unsigned int snotifyUserID, c
 			}
 		}
 	}
-	if (found = false) {
-		return false;
-	}
+
 	songVec.quickSort(0, songVec.getSize() - 1);
 	for (unsigned int i = 0; i < songVec.getSize(); i++) {
 		pLibraryArray[i] = songVec.getAt(i);
@@ -274,9 +289,7 @@ bool cSnotify::GetUsersSongLibraryAscendingByArtist(unsigned int snotifyUserID, 
 			}
 		}
 	}
-	if (found = false) {
-		return false;
-	}
+
 	songVec.quickSort2(0, songVec.getSize() - 1);
 	for (unsigned int i = 0; i < songVec.getSize(); i++) {
 		pLibraryArray[i] = songVec.getAt(i);
@@ -286,17 +299,110 @@ bool cSnotify::GetUsersSongLibraryAscendingByArtist(unsigned int snotifyUserID, 
 }
 
 bool cSnotify::GetUsers(cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
-	if (personLibVec.getSize() == 0) {
-		return false;
-	}
 	
 	SmartArray<cPerson> vec;
 	const unsigned int sizeOfArray = personLibVec.getSize() * sizeof(cSong);
 	pAllTheUsers = new cPerson[sizeOfArray];
 	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
 		vec.addAtEnd(*personLibVec.getAt(i));
+	
+	}
+	vec.quickSort(0, vec.getSize() - 1);
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+	
 		pAllTheUsers[i] = vec.getAt(i);
 	}
 	sizeOfUserArray = vec.getSize();
 	return true;
 }
+
+bool cSnotify::GetUsersByID(cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
+	SmartArray<cPerson> vec;
+	const unsigned int sizeOfArray = personLibVec.getSize() * sizeof(cSong);
+	pAllTheUsers = new cPerson[sizeOfArray];
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+		vec.addAtEnd(*personLibVec.getAt(i));
+
+	}
+	vec.quickSort2(0, vec.getSize() - 1);
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+
+		pAllTheUsers[i] = vec.getAt(i);
+	}
+	sizeOfUserArray = vec.getSize();
+	return true;
+}
+
+bool cSnotify::FindUsersFirstName(std::string firstName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
+	SmartArray<cPerson> vec;
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+		if (personLibVec.getAt(i)->first == firstName) {
+			vec.addAtEnd(*personLibVec.getAt(i));
+		}
+	}
+	const unsigned int sizeOfArray = vec.getSize() * sizeof(cSong);
+	pAllTheUsers = new cPerson[sizeOfArray];
+	vec.quickSort(0, vec.getSize() - 1);
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+		pAllTheUsers[i] = vec.getAt(i);
+	}
+	sizeOfUserArray = vec.getSize();
+	return true;
+}
+
+bool cSnotify::FindUsersLastName(std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
+	SmartArray<cPerson> vec;
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+		if (personLibVec.getAt(i)->last == lastName) {
+			vec.addAtEnd(*personLibVec.getAt(i));
+		}
+	}
+	const unsigned int sizeOfArray = vec.getSize() * sizeof(cSong);
+	pAllTheUsers = new cPerson[sizeOfArray];
+	vec.quickSortBy(0, vec.getSize() - 1);
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+		pAllTheUsers[i] = vec.getAt(i);
+	}
+	sizeOfUserArray = vec.getSize();
+	return true;
+}
+
+bool cSnotify::FindUsersFirstLastNames(std::string firstName, std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
+	SmartArray<cPerson> vec;
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+		if (personLibVec.getAt(i)->last == lastName && personLibVec.getAt(i)->last == lastName) {
+			vec.addAtEnd(*personLibVec.getAt(i));
+		}
+	}
+	const unsigned int sizeOfArray = vec.getSize() * sizeof(cSong);
+	pAllTheUsers = new cPerson[sizeOfArray];
+	vec.quickSortByMid(0, vec.getSize() - 1);
+	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+		pAllTheUsers[i] = vec.getAt(i);
+	}
+	sizeOfUserArray = vec.getSize();
+	return true;
+}
+
+//bool byAge(cPerson const& lhs, cPerson const& rhs) {
+//	return lhs.age <= lhs.age;
+//}
+//
+
+
+//
+//bool cSnotify::FindUsersFirstLastNamesTEST(std::string firstName, std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
+//	SmartArray<cPerson> vec;
+//	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+//		if (personLibVec.getAt(i)->last == lastName && personLibVec.getAt(i)->last == lastName) {
+//			vec.addAtEnd(*personLibVec.getAt(i));
+//		}
+//	}
+//	const unsigned int sizeOfArray = vec.getSize() * sizeof(cSong);
+//	pAllTheUsers = new cPerson[sizeOfArray];
+//	vec.quickSortByFunc(0, vec.getSize() - 1, byAge);
+//	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+//		pAllTheUsers[i] = vec.getAt(i);
+//	}
+//	return true;
+//}

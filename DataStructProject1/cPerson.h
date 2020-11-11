@@ -61,9 +61,9 @@ public:
 	//unsigned int SIN = 0;		// C++ 11
 
 	unsigned int getSnotifyUniqueUserID(void);
-
-private:
 	unsigned int m_Snotify_UniqueUserID;
+private:
+	
 	// 
 	static unsigned int m_NEXT_Snotify_UniqueUSerID;
 };

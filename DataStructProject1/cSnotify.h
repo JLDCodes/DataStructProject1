@@ -80,7 +80,7 @@ public:
 	bool FindUsersLastName(std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray);
 	// Sorted ascending by last name THEN first name.
 	bool FindUsersFirstLastNames(std::string firstName, std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray);
-
+	bool FindUsersFirstLastNamesTEST(std::string firstName, std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray);
 
 };
 

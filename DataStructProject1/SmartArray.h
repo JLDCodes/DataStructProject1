@@ -140,7 +140,7 @@ public:
 		int i = (low - 1);
 		for (int j = low; j <= high - 1; j++)
 		{
-			if (byArtist(this->getAt(j), pivot))
+			if (bySpecial(this->getAt(j), pivot))
 			{
 				i++;
 				//swap 
@@ -166,5 +166,120 @@ public:
 			quickSort2(pi + 1, high);
 		}
 	}
+
+	
+	int partitionBy(int low, int high)
+	{
+		value_type pivot = this->getAt(high);
+		int i = (low - 1);
+		for (int j = low; j <= high - 1; j++)
+		{
+			if (byFirst(this->getAt(j), pivot))
+			{
+				i++;
+				//swap 
+				value_type hold = pArray_[i];
+				pArray_[i] = pArray_[j];
+				pArray_[j] = hold;
+			}
+		}
+		//swap
+		value_type hold2 = this->getAt(i + 1);
+		pArray_[i + 1] = pArray_[high];
+		pArray_[high] = hold2;
+		return (i + 1);
+	}
+
+
+	/* low  --> Starting index,  high  --> Ending index */
+	void quickSortBy(int low, int high)
+	{
+		if (low < high)
+		{
+			int pi = partition2(low, high);
+			quickSort2(low, pi - 1);
+			quickSort2(pi + 1, high);
+		}
+	}
+
+	/* low  --> Starting index,  high  --> Ending index */
+	void quickSortByMid(int low, int high)
+	{
+		if (low < high)
+		{
+			int pi = partitionByMid(low, high);
+			quickSortByMid(low, pi - 1);
+			quickSortByMid(pi + 1, high);
+		}
+	}
+
+	int partitionByMid(int low, int high)
+	{
+		value_type pivot = this->getAt(high);
+		int i = (low - 1);
+		for (int j = low; j <= high - 1; j++)
+		{
+			if ((this->getAt(j).middle <= pivot.middle))
+			{
+				i++;
+				//swap 
+				value_type hold = pArray_[i];
+				pArray_[i] = pArray_[j];
+				pArray_[j] = hold;
+			}
+		}
+		//swap
+		value_type hold2 = this->getAt(i + 1);
+		pArray_[i + 1] = pArray_[high];
+		pArray_[high] = hold2;
+		return (i + 1);
+	}
+	//bool byAge(cPerson const& lhs, cPerson const& rhs) {
+	//	return lhs.age <= lhs.age;
+	//}
+
+	//bool(*testfunc)(cPerson, cPerson);
+	//testF = &byAge;
+
+	/* low  --> Starting index,  high  --> Ending index */
+
+	//typedef bool (*callback_function)(const cPerson*a, const cPerson*b);
+	//callback_function discfunc;
+
+
+	//void quickSortByFunc(int low, int high, callback_function a)
+	//{
+	//	if (low < high)
+	//	{
+	//		int pi = partitionByFunc(low, high, a);
+	//		quickSortByFunc(low, pi - 1);
+	//		quickSortByFunc(pi + 1, high);
+	//	}
+	//}
+
+	//int partitionByFunc(int low, int high, callback_function  a)
+	//{
+	//	value_type pivot = this->getAt(high);
+	//	int i = (low - 1);
+	//	for (int j = low; j <= high - 1; j++)
+	//	{
+	//		if (a(this->getAt(j), pivot))
+	//		{
+	//			i++;
+	//			//swap 
+	//			value_type hold = pArray_[i];
+	//			pArray_[i] = pArray_[j];
+	//			pArray_[j] = hold;
+	//		}
+	//	}
+	//	//swap
+	//	value_type hold2 = this->getAt(i + 1);
+	//	pArray_[i + 1] = pArray_[high];
+	//	pArray_[high] = hold2;
+	//	return (i + 1);
+	//}
+
+
+
 };
 
