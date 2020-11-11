@@ -267,7 +267,7 @@ bool cSnotify::GetUsersSongLibraryAscendingByTitle(unsigned int snotifyUserID, c
 		}
 	}
 
-	songVec.quickSort(0, songVec.getSize() - 1);
+	songVec.quickSortByType(0, songVec.getSize() - 1, "name");
 	for (unsigned int i = 0; i < songVec.getSize(); i++) {
 		pLibraryArray[i] = songVec.getAt(i);
 	}
@@ -290,7 +290,7 @@ bool cSnotify::GetUsersSongLibraryAscendingByArtist(unsigned int snotifyUserID, 
 		}
 	}
 
-	songVec.quickSort2(0, songVec.getSize() - 1);
+	songVec.quickSortByType(0, songVec.getSize() - 1, "artist");
 	for (unsigned int i = 0; i < songVec.getSize(); i++) {
 		pLibraryArray[i] = songVec.getAt(i);
 	}
@@ -307,7 +307,6 @@ bool cSnotify::GetUsers(cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
 		vec.addAtEnd(*personLibVec.getAt(i));
 	
 	}
-	vec.quickSort(0, vec.getSize() - 1);
 	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
 	
 		pAllTheUsers[i] = vec.getAt(i);
@@ -324,7 +323,7 @@ bool cSnotify::GetUsersByID(cPerson*& pAllTheUsers, unsigned int& sizeOfUserArra
 		vec.addAtEnd(*personLibVec.getAt(i));
 
 	}
-	vec.quickSort2(0, vec.getSize() - 1);
+	vec.quickSortPersonByType(0, vec.getSize() - 1, "id");
 	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
 
 		pAllTheUsers[i] = vec.getAt(i);
@@ -342,7 +341,7 @@ bool cSnotify::FindUsersFirstName(std::string firstName, cPerson*& pAllTheUsers,
 	}
 	const unsigned int sizeOfArray = vec.getSize() * sizeof(cSong);
 	pAllTheUsers = new cPerson[sizeOfArray];
-	vec.quickSort(0, vec.getSize() - 1);
+		vec.quickSortPersonByType(0, vec.getSize() - 1, "last");
 	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
 		pAllTheUsers[i] = vec.getAt(i);
 	}
@@ -359,7 +358,7 @@ bool cSnotify::FindUsersLastName(std::string lastName, cPerson*& pAllTheUsers, u
 	}
 	const unsigned int sizeOfArray = vec.getSize() * sizeof(cSong);
 	pAllTheUsers = new cPerson[sizeOfArray];
-	vec.quickSortBy(0, vec.getSize() - 1);
+	vec.quickSortPersonByType(0, vec.getSize() - 1, "first");
 	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
 		pAllTheUsers[i] = vec.getAt(i);
 	}
@@ -376,7 +375,7 @@ bool cSnotify::FindUsersFirstLastNames(std::string firstName, std::string lastNa
 	}
 	const unsigned int sizeOfArray = vec.getSize() * sizeof(cSong);
 	pAllTheUsers = new cPerson[sizeOfArray];
-	vec.quickSortByMid(0, vec.getSize() - 1);
+	vec.quickSortPersonByType(0, vec.getSize() - 1, "middle");
 	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
 		pAllTheUsers[i] = vec.getAt(i);
 	}

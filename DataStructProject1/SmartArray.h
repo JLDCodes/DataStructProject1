@@ -247,38 +247,112 @@ public:
 	//callback_function discfunc;
 
 
-	//void quickSortByFunc(int low, int high, callback_function a)
-	//{
-	//	if (low < high)
-	//	{
-	//		int pi = partitionByFunc(low, high, a);
-	//		quickSortByFunc(low, pi - 1);
-	//		quickSortByFunc(pi + 1, high);
-	//	}
-	//}
+	void quickSortByType(int low, int high, std::string type)
+	{
+		if (low < high)
+		{
+			int pi = partitionByType(low, high, type);
+			quickSortByType(low, pi - 1, type);
+			quickSortByType(pi + 1, high, type);
+		}
+	}
 
-	//int partitionByFunc(int low, int high, callback_function  a)
-	//{
-	//	value_type pivot = this->getAt(high);
-	//	int i = (low - 1);
-	//	for (int j = low; j <= high - 1; j++)
-	//	{
-	//		if (a(this->getAt(j), pivot))
-	//		{
-	//			i++;
-	//			//swap 
-	//			value_type hold = pArray_[i];
-	//			pArray_[i] = pArray_[j];
-	//			pArray_[j] = hold;
-	//		}
-	//	}
-	//	//swap
-	//	value_type hold2 = this->getAt(i + 1);
-	//	pArray_[i + 1] = pArray_[high];
-	//	pArray_[high] = hold2;
-	//	return (i + 1);
-	//}
 
+	int partitionByType(int low, int high, std::string type)
+	{
+		value_type pivot = this->getAt(high);
+		int i = (low - 1);
+		bool swap = false;
+		for (int j = low; j <= high - 1; j++)
+		{
+
+			if (type == "artist") {
+				if ((this->getAt(j).artist <= pivot.artist)) {
+					swap = true;
+				}
+			}
+			if (type == "name") {
+				if ((this->getAt(j).name <= pivot.name)) {
+					swap = true;
+				}
+			}
+			if (swap==true)
+			{
+				i++;
+				//swap 
+				value_type hold = pArray_[i];
+				pArray_[i] = pArray_[j];
+				pArray_[j] = hold;
+			}
+			swap = false;
+		}
+		//swap
+		value_type hold2 = this->getAt(i + 1);
+		pArray_[i + 1] = pArray_[high];
+		pArray_[high] = hold2;
+		return (i + 1);
+	}
+
+	void quickSortPersonByType(int low, int high, std::string type)
+	{
+		if (low < high)
+		{
+			int pi = partitionPersonByType(low, high, type);
+			quickSortPersonByType(low, pi - 1, type);
+			quickSortPersonByType(pi + 1, high, type);
+		}
+	}
+
+
+	int partitionPersonByType(int low, int high, std::string type)
+	{
+		value_type pivot = this->getAt(high);
+		int i = (low - 1);
+		bool swap = false;
+		for (int j = low; j <= high - 1; j++)
+		{
+
+			if (type == "first") {
+				if ((this->getAt(j).first <= pivot.first)) {
+					swap = true;
+				}
+			}
+			if (type == "middle") {
+				if ((this->getAt(j).middle <= pivot.middle)) {
+					swap = true;
+				}
+			}
+			if (type == "last") {
+				if ((this->getAt(j).last <= pivot.last)) {
+					swap = true;
+				}
+			}
+			if (type == "sin") {
+				if ((this->getAt(j).SIN <= pivot.SIN)) {
+					swap = true;
+				}
+			}
+			if (type == "id") {
+				if ((this->getAt(j).m_Snotify_UniqueUserID <= pivot.m_Snotify_UniqueUserID)) {
+					swap = true;
+				}
+			}
+			if (swap == true)
+			{
+				i++;
+				//swap 
+				value_type hold = pArray_[i];
+				pArray_[i] = pArray_[j];
+				pArray_[j] = hold;
+			}
+			swap = false;
+		}
+		//swap
+		value_type hold2 = this->getAt(i + 1);
+		pArray_[i + 1] = pArray_[high];
+		pArray_[high] = hold2;
+		return (i + 1);
+	}
 
 
 };
