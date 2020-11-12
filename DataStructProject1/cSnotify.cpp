@@ -23,6 +23,9 @@ bool cSnotify::DeleteUser(unsigned int SnotifyUserID, std::string& errorString) 
 // All these return true if they work, false if not (for any reason)
 	// You can add some error information to the by referenece error string, if you want. 
 bool cSnotify::AddUser(cPerson* pPerson, std::string& errorString) {
+	if (pPerson == nullptr) {
+		return false;
+	}
 	personLibVec.addAtEnd(pPerson);
 	return true;
 }
@@ -236,7 +239,7 @@ bool cSnotify::GetUsersSongLibraryAscendingByTitle(unsigned int snotifyUserID, c
 		}
 	}
 
-	songVec.quickSortByType(0, songVec.getSize() - 1, "name");
+	songVec.quickSortSongByType(0, songVec.getSize() - 1, "name");
 	for (unsigned int i = 0; i < songVec.getSize(); i++) {
 		pLibraryArray[i] = songVec.getAt(i);
 	}
@@ -259,7 +262,7 @@ bool cSnotify::GetUsersSongLibraryAscendingByArtist(unsigned int snotifyUserID, 
 		}
 	}
 
-	songVec.quickSortByType(0, songVec.getSize() - 1, "artist");
+	songVec.quickSortSongByType(0, songVec.getSize() - 1, "artist");
 	for (unsigned int i = 0; i < songVec.getSize(); i++) {
 		pLibraryArray[i] = songVec.getAt(i);
 	}
@@ -270,12 +273,13 @@ bool cSnotify::GetUsersSongLibraryAscendingByArtist(unsigned int snotifyUserID, 
 bool cSnotify::GetUsers(cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
 	
 	SmartArray<cPerson> vec;
-	const unsigned int sizeOfArray = personLibVec.getSize() * sizeof(cSong);
+	const unsigned int sizeOfArray = personLibVec.getSize() * sizeof(cPerson);
 	pAllTheUsers = new cPerson[sizeOfArray];
 	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
 		vec.addAtEnd(*personLibVec.getAt(i));
 	
 	}
+	vec.quickSortPersonByType(0, vec.getSize() - 1, "last");
 	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
 	
 		pAllTheUsers[i] = vec.getAt(i);
@@ -286,7 +290,7 @@ bool cSnotify::GetUsers(cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
 
 bool cSnotify::GetUsersByID(cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
 	SmartArray<cPerson> vec;
-	const unsigned int sizeOfArray = personLibVec.getSize() * sizeof(cSong);
+	const unsigned int sizeOfArray = personLibVec.getSize() * sizeof(cPerson);
 	pAllTheUsers = new cPerson[sizeOfArray];
 	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
 		vec.addAtEnd(*personLibVec.getAt(i));
@@ -308,10 +312,10 @@ bool cSnotify::FindUsersFirstName(std::string firstName, cPerson*& pAllTheUsers,
 			vec.addAtEnd(*personLibVec.getAt(i));
 		}
 	}
-	const unsigned int sizeOfArray = vec.getSize() * sizeof(cSong);
+	const unsigned int sizeOfArray = vec.getSize() * sizeof(cPerson);
 	pAllTheUsers = new cPerson[sizeOfArray];
-		vec.quickSortPersonByType(0, vec.getSize() - 1, "last");
-	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+	vec.quickSortPersonByType(0, vec.getSize() - 1, "last");
+	for (unsigned int i = 0; i < vec.getSize(); i++) {
 		pAllTheUsers[i] = vec.getAt(i);
 	}
 	sizeOfUserArray = vec.getSize();
@@ -325,10 +329,10 @@ bool cSnotify::FindUsersLastName(std::string lastName, cPerson*& pAllTheUsers, u
 			vec.addAtEnd(*personLibVec.getAt(i));
 		}
 	}
-	const unsigned int sizeOfArray = vec.getSize() * sizeof(cSong);
+	const unsigned int sizeOfArray = vec.getSize() * sizeof(cPerson);
 	pAllTheUsers = new cPerson[sizeOfArray];
 	vec.quickSortPersonByType(0, vec.getSize() - 1, "first");
-	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+	for (unsigned int i = 0; i < vec.getSize(); i++) {
 		pAllTheUsers[i] = vec.getAt(i);
 	}
 	sizeOfUserArray = vec.getSize();
@@ -342,10 +346,10 @@ bool cSnotify::FindUsersFirstLastNames(std::string firstName, std::string lastNa
 			vec.addAtEnd(*personLibVec.getAt(i));
 		}
 	}
-	const unsigned int sizeOfArray = vec.getSize() * sizeof(cSong);
+	const unsigned int sizeOfArray = vec.getSize() * sizeof(cPerson);
 	pAllTheUsers = new cPerson[sizeOfArray];
 	vec.quickSortPersonByType(0, vec.getSize() - 1, "middle");
-	for (unsigned int i = 0; i < personLibVec.getSize(); i++) {
+	for (unsigned int i = 0; i < vec.getSize(); i++) {
 		pAllTheUsers[i] = vec.getAt(i);
 	}
 	sizeOfUserArray = vec.getSize();

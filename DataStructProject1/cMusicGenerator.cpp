@@ -78,7 +78,7 @@ cSong* cMusicGenerator::getRandomSong(void) {
 	std::uniform_int_distribution<int> dist(0, cSongList.getSize()-1);
 	int songId = dist(rd);
 	cSong* randSong = new cSong;
-	return cSongList.getNodeInfoAt(dist(rd));
+	return cSongList.getAt(dist(rd));
 }
 
 // Returns 0, NULL, or nullptr if no song is found
@@ -87,8 +87,8 @@ cSong* cMusicGenerator::getRandomSong(void) {
 cSong* cMusicGenerator::findSong(std::string songName, std::string artist) {
 	
 	for (unsigned int i = 0; i < cSongList.getSize(); i++) {
-		if (cSongList.getNodeInfoAt(i)->name == songName && cSongList.getNodeInfoAt(i)->artist == artist) {
-			return cSongList.getNodeInfoAt(i);
+		if (cSongList.getAt(i)->name == songName && cSongList.getAt(i)->artist == artist) {
+			return cSongList.getAt(i);
 		}
 	}
 	return nullptr;

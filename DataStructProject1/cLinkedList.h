@@ -17,12 +17,11 @@ public:
 
 	~cLinkedList()
 	{
-		//delete all the nodes
+	
 		clear();
 	}
 
-	//insert a new node value at the current location 
-	//It inserts before the current location! 
+
 	bool insert(T objectToInsert)
 	{
 		//creating new node
@@ -248,7 +247,7 @@ public:
 		return CurrentNodePtr;
 	}
 
-	T getNodeInfoAt(unsigned int position)
+	T getAt(unsigned int position)
 	{
 		//just return the initial value 
 		if (position >= this->size_)

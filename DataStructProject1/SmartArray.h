@@ -109,19 +109,19 @@ public:
 	}
 
 	// quick sort based on song
-	// Type is the specified variable that you want to 
-	void quickSortByType(int low, int high, std::string type)
+	// Type is the specified variable that you want to sort by
+	void quickSortSongByType(int low, int high, std::string type)
 	{
 		if (low < high)
 		{
-			int pi = partitionByType(low, high, type);
-			quickSortByType(low, pi - 1, type);
-			quickSortByType(pi + 1, high, type);
+			int pi = patritionSongByType(low, high, type);
+			quickSortSongByType(low, pi - 1, type);
+			quickSortSongByType(pi + 1, high, type);
 		}
 	}
 
 	// partitrion based on song variable
-	int partitionByType(int low, int high, std::string type)
+	int patritionSongByType(int low, int high, std::string type)
 	{
 		value_type pivot = this->getAt(high);
 		int i = (low - 1);

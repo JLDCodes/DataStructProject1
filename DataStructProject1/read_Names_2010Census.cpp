@@ -28,7 +28,7 @@ int main()
 	mGen->LoadMusicInformation("hot_stuff_2.csv", error);
 
 	for (unsigned int i = 0; i < mGen->artistList.getSize()-1; i++) {
-		std::cout << "Artist: " << mGen->cSongList.getNodeInfoAt(i)->artist << " songName: " << mGen->cSongList.getNodeInfoAt(i)->name << "\n";
+		std::cout << "Artist: " << mGen->cSongList.getAt(i)->artist << " songName: " << mGen->cSongList.getAt(i)->name << "\n";
 	}
 	
 	std::cout << mGen->songIdVec.getSize() << "\n";
@@ -42,6 +42,9 @@ int main()
 	cSnotify* spotify = new cSnotify;
 
 	spotify->AddUser(pGen->generateRandomPerson(), error);
+	for (int i = 0; i < 100; i++) {
+		spotify->AddUser(pGen->generateRandomPerson(), error);
+	}
 
 	std::cout << spotify->personLibVec.getAt(0)->first << "\n";
 	spotify->AddUser(pGen->generateRandomPerson(), error);
@@ -103,7 +106,7 @@ int main()
 	for (unsigned int i = 0; i < 7; i++) {
 		std::cout << spotify->songLibVec.getAt(i)->name << "\n";
 	}
-	for (unsigned int i = 0; i < 5; i++) {
+	for (unsigned int i = 0; i < 100; i++) {
 		spotify->personLibVec.getAt(0)->personalSongLibVec.addAtEnd(spotify->songLibVec.getAt(i));
 	}
 
@@ -138,8 +141,10 @@ int main()
 		std::cout << peopleLib[i].m_Snotify_UniqueUserID << "\n";
 	}
 	spotify->personLibVec.getAt(1)->first = spotify->personLibVec.getAt(0)->first;
-	spotify->FindUsersFirstName(spotify->personLibVec.getAt(0)->first, peopleLib, size);
-	
+	size = 0;
+	cPerson* pepLib;
+	spotify->FindUsersFirstName(spotify->personLibVec.getAt(0)->first, pepLib, size);
+	//
 	std::cout << "\n\n";
 	for (unsigned int i = 0; i < size; i++) {
 		std::cout << peopleLib[i].first << " " << peopleLib[i].last << "\n";
