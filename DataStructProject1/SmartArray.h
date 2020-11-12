@@ -128,7 +128,7 @@ public:
 		bool swap = false;
 		for (int j = low; j <= high - 1; j++)
 		{
-
+			// passing a string  which will determine which variable will be compared
 			if (type == "artist") {
 				if ((this->getAt(j).artist <= pivot.artist)) {
 					swap = true;
@@ -139,7 +139,7 @@ public:
 					swap = true;
 				}
 			}
-			if (swap==true)
+			if (swap)
 			{
 				i++;
 				//swap 
@@ -156,6 +156,7 @@ public:
 		return (i + 1);
 	}
 
+	// this sort is for cPerson, it is sorted by the string inputed
 	void quickSortPersonByType(int low, int high, std::string type)
 	{
 		if (low < high)
@@ -166,7 +167,7 @@ public:
 		}
 	}
 
-
+	//the string passed in will determine the type of sort done
 	int partitionPersonByType(int low, int high, std::string type)
 	{
 		value_type pivot = this->getAt(high);
