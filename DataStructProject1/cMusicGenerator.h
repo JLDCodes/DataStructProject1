@@ -11,6 +11,7 @@ public:
 	cLinkedList<std::string> songList;
 	cLinkedList<cSong*> cSongList;
 	SmartArray<std::string> songIdVec;
+	SmartArray<cSong*> releaseList;
 	cMusicGenerator();
 	~cMusicGenerator();
 

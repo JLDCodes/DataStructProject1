@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <sstream>		// String Stream
+#include <sstream>		
 #include <string>
 #include "SmartArray.h"
 #include "cPersonGenerator.h"

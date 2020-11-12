@@ -77,8 +77,14 @@ cSong* cMusicGenerator::getRandomSong(void) {
 	std::random_device rd;
 	std::uniform_int_distribution<int> dist(0, cSongList.getSize()-1);
 	int songId = dist(rd);
-	cSong* randSong = new cSong;
-	return cSongList.getAt(dist(rd));
+	while (true){
+		if (releaseList.addAtEndNoDuplicates(cSongList.getAt(songId)) == true) {
+			return cSongList.getAt(songId);
+		}
+		songId = dist(rd);
+	}
+	
+	
 }
 
 // Returns 0, NULL, or nullptr if no song is found
