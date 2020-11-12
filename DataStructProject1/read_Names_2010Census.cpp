@@ -147,7 +147,7 @@ int main()
 	//
 	std::cout << "\n\n";
 	for (unsigned int i = 0; i < size; i++) {
-		std::cout << peopleLib[i].first << " " << peopleLib[i].last << "\n";
+		std::cout << pepLib[i].first << " " << pepLib[i].last << "\n";
 	}
 	spotify->personLibVec.getAt(2)->last = spotify->personLibVec.getAt(0)->last;
 	std::cout << "\n\n";
