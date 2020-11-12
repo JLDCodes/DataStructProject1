@@ -288,6 +288,7 @@ bool cSnotify::GetUsersSongLibraryAscendingByArtist(unsigned int snotifyUserID, 
 	sizeOfLibary = songVec.getSize();
 	return true;
 }
+
 //returns the master user list from spotify (smart array) 
 bool cSnotify::GetUsers(cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
 	if (personLibVec.getSize() == 0) {

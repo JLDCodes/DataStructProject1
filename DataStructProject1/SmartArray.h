@@ -27,19 +27,7 @@ private:
 	}
 
 public:
-	//creates a new array and copies the old one, without the value at given index
-	void removeFromVec(unsigned int index) {
-		value_type* new_array = new value_type[capacity_];
-		int count = 0;
-		for (unsigned int i = 0; i < size_; i++) {
-			if (i != index) {
-				new_array[count++] = pArray_[i];	
-			}
-		}
-		delete[] pArray_;
-		pArray_ = new_array;
-		size_ = count;
-	}
+
 
 	//set start values 
 	SmartArray() {
@@ -218,6 +206,19 @@ public:
 		return (i + 1);
 	}
 
+	//creates a new array and copies the old one, without the value at given index
+	void removeFromVec(unsigned int index) {
+		value_type* new_array = new value_type[capacity_];
+		int count = 0;
+		for (unsigned int i = 0; i < size_; i++) {
+			if (i != index) {
+				new_array[count++] = pArray_[i];
+			}
+		}
+		delete[] pArray_;
+		pArray_ = new_array;
+		size_ = count;
+	}
 
 };
 

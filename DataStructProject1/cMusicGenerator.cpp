@@ -73,6 +73,7 @@ bool cMusicGenerator::LoadMusicInformation(std::string musicFileName, std::strin
 	return true;
 }
 
+//
 cSong* cMusicGenerator::getRandomSong(void) {
 	std::random_device rd;
 	std::uniform_int_distribution<int> dist(0, cSongList.getSize()-1);
